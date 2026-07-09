@@ -1318,10 +1318,10 @@
 
                     }, 500); // 100%가 된 후 대기시간 (ms단위)
                 }
-            }, 50); // 수치를 낮추면 로딩이 빨라집니다.
+            }, 20); // 수치를 낮추면 로딩이 빨라집니다.
         }
 
-        function runTypingEffect() {
+function runTypingEffect() {
             const line1 = document.getElementById('line1');
             const line2 = document.getElementById('line2');
             const line3 = document.getElementById('line3');
@@ -1333,7 +1333,9 @@
             let idx1 = 0;
             let idx2 = 0;
             let idx3 = 0;
-            const typingSpeed = 60;
+            
+            // 한 글자 찍히는 속도
+            const typingSpeed = 30; 
 
             // Line 1 타이핑
             line1.innerHTML = '<span class="cursor"></span>';
@@ -1352,55 +1354,59 @@
                     clearInterval(typeLine1);
                     if (line1.querySelector('.cursor')) line1.querySelector('.cursor').remove();
                     
-                    // Line 2 타이핑
-                    line2.innerHTML = '<span class=\"cursor\"></span>';
-                    const typeLine2 = setInterval(() => {
-                        if (idx2 < content2.length) {
-                            if(content2.substring(0, idx2 + 1) === "Permission ") {
-                                line2.innerHTML = "Permission " + '<span class=\"cursor\"></span>';
-                            } else if(idx2 >= 13) {
-                                let valPart = content2.substring(13, idx2 + 1);
-                                line2.innerHTML = `Permission : <span class=\"type-val">${valPart}</span><span class=\"cursor\"></span>`;
-                            } else {
-                                line2.innerHTML = content2.substring(0, idx2 + 1) + '<span class=\"cursor\"></span>';
-                            }
-                            idx2++;
-                        } else {
-                            clearInterval(typeLine2);
-                            if (line2.querySelector('.cursor')) line2.querySelector('.cursor').remove();
-                            
-                             // Line 3 타이핑
-                            line3.innerHTML = '<span class="cursor"></span>';
-                            const typeLine3 = setInterval(() => {
-                                if (idx3 < content3.length) {
-                                    if (content3.substring(0, idx3 + 1) === "Access ") {
-                                        line3.innerHTML = "Access " + '<span class="cursor"></span>';
-                                    } else if (idx3 >= 9) {
-                                        let valPart = content3.substring(9, idx3 + 1);
-                                        line3.innerHTML = `Access : <span class="type-val">${valPart}</span><span class="cursor"></span>`;
-                                    } else {
-                                        line3.innerHTML = content3.substring(0, idx3 + 1) + '<span class="cursor"></span>';
-                                    }
-                                    idx3++;
+                    // 💡 2. Line 1이 끝나고 Line 2로 넘어가기 전 대기 텀 (60ms)
+                    setTimeout(() => {
+                        line2.innerHTML = '<span class="cursor"></span>';
+                        const typeLine2 = setInterval(() => {
+                            if (idx2 < content2.length) {
+                                if(content2.substring(0, idx2 + 1) === "Permission ") {
+                                    line2.innerHTML = "Permission " + '<span class="cursor"></span>';
+                                } else if(idx2 >= 13) {
+                                    let valPart = content2.substring(13, idx2 + 1);
+                                    line2.innerHTML = `Permission : <span class="type-val">${valPart}</span><span class="cursor"></span>`;
                                 } else {
-                                    clearInterval(typeLine3);
-                                    
-                                    // 메인 웹화면으로 서서히 전환
-                                    setTimeout(() => {
-                                        const identityOverlay = document.getElementById('identity-overlay');
-                                        const mainWrapper = document.getElementById('main-wrapper');
-                                        
-                                        identityOverlay.style.opacity = '0';
-                                        
-                                        setTimeout(() => {
-                                            identityOverlay.style.display = 'none';
-                                            mainWrapper.style.opacity = '1';
-                                        }, 600);
-                                    }, 1000);
+                                    line2.innerHTML = content2.substring(0, idx2 + 1) + '<span class="cursor"></span>';
                                 }
-                            }, typingSpeed);
-                        }
-                    }, typingSpeed);
+                                idx2++;
+                            } else {
+                                clearInterval(typeLine2);
+                                if (line2.querySelector('.cursor')) line2.querySelector('.cursor').remove();
+                                
+                                // 💡 3. Line 2가 끝나고 Line 3으로 넘어가기 전 대기 텀 (60ms)
+                                setTimeout(() => {
+                                    line3.innerHTML = '<span class="cursor"></span>';
+                                    const typeLine3 = setInterval(() => {
+                                        if (idx3 < content3.length) {
+                                            if (content3.substring(0, idx3 + 1) === "Access ") {
+                                                line3.innerHTML = "Access " + '<span class="cursor"></span>';
+                                            } else if (idx3 >= 9) {
+                                                let valPart = content3.substring(9, idx3 + 1);
+                                                line3.innerHTML = `Access : <span class="type-val">${valPart}</span><span class="cursor"></span>`;
+                                            } else {
+                                                line3.innerHTML = content3.substring(0, idx3 + 1) + '<span class="cursor"></span>';
+                                            }
+                                            idx3++;
+                                        } else {
+                                            clearInterval(typeLine3);
+                                            
+                                            // 메인 웹화면으로 서서히 전환
+                                            setTimeout(() => {
+                                                const identityOverlay = document.getElementById('identity-overlay');
+                                                const mainWrapper = document.getElementById('main-wrapper');
+                                                
+                                                identityOverlay.style.opacity = '0';
+                                                
+                                                setTimeout(() => {
+                                                    identityOverlay.style.display = 'none';
+                                                    mainWrapper.style.opacity = '1';
+                                                }, 600);
+                                            }, 1000);
+                                        }
+                                    }, typingSpeed);
+                                }, 60); // Line 2 -> Line 3 딜레이 시간
+                            }
+                        }, typingSpeed);
+                    }, 60); // Line 1 -> Line 2 딜레이 시간
                 }
             }, typingSpeed);
         }
