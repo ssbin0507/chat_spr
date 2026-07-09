@@ -824,11 +824,12 @@
         </div>
     </div>
 
-    <div id="identity-overlay" class="intro-screen" style="display: none; opacity: 0;">
+<div id="identity-overlay" class="intro-screen" style="display: none; opacity: 0;">
         <div class="typing-box">
             <span class="type-line" id="line1"></span>
             <span class="type-line" id="line2"></span>
             <span class="type-line" id="line3"></span>
+            <span class="type-line" id="line4" style="margin-top: 2.4rem; font-weight: bold; color: var(--success);"></span>
         </div>
     </div>
 
@@ -1325,17 +1326,18 @@ function runTypingEffect() {
             const line1 = document.getElementById('line1');
             const line2 = document.getElementById('line2');
             const line3 = document.getElementById('line3');
+            const line4 = document.getElementById('line4'); // 4번째 줄 가져오기
 
             const content1 = "Identity : Guest";
             const content2 = "Permission : Public Archive";
             const content3 = "Access : Lv.1";
+            const content4 = "[Connection Successed]"; // 4번째 줄 문구 설정
 
             let idx1 = 0;
             let idx2 = 0;
             let idx3 = 0;
             
-            // 한 글자 찍히는 속도
-            const typingSpeed = 30; 
+            const typingSpeed = 30; // 한 글자 한 글자 속도 (30ms)
 
             // Line 1 타이핑
             line1.innerHTML = '<span class="cursor"></span>';
@@ -1354,7 +1356,7 @@ function runTypingEffect() {
                     clearInterval(typeLine1);
                     if (line1.querySelector('.cursor')) line1.querySelector('.cursor').remove();
                     
-                    // 💡 2. Line 1이 끝나고 Line 2로 넘어가기 전 대기 텀 (60ms)
+                    // Line 1 -> Line 2 넘어가는 텀 (60ms)
                     setTimeout(() => {
                         line2.innerHTML = '<span class="cursor"></span>';
                         const typeLine2 = setInterval(() => {
@@ -1372,7 +1374,7 @@ function runTypingEffect() {
                                 clearInterval(typeLine2);
                                 if (line2.querySelector('.cursor')) line2.querySelector('.cursor').remove();
                                 
-                                // 💡 3. Line 2가 끝나고 Line 3으로 넘어가기 전 대기 텀 (60ms)
+                                // Line 2 -> Line 3 넘어가는 텀 (60ms)
                                 setTimeout(() => {
                                     line3.innerHTML = '<span class="cursor"></span>';
                                     const typeLine3 = setInterval(() => {
@@ -1388,25 +1390,35 @@ function runTypingEffect() {
                                             idx3++;
                                         } else {
                                             clearInterval(typeLine3);
+                                            if (line3.querySelector('.cursor')) line3.querySelector('.cursor').remove();
                                             
-                                            // 메인 웹화면으로 서서히 전환
+                                            //  3번째 줄이 끝나고 몇 초간(예: 1.5초) 쉬었다가 4번째 줄을 한 번에 보여줍니다.
                                             setTimeout(() => {
-                                                const identityOverlay = document.getElementById('identity-overlay');
-                                                const mainWrapper = document.getElementById('main-wrapper');
                                                 
-                                                identityOverlay.style.opacity = '0';
+                                                // 타이핑 효과 없이 통째로 한 번에 출력 ("짠")
+                                                line4.innerHTML = content4; 
                                                 
+                                                //  접속 성공 메시지가 뜬 후, 몇 초(예: 1.2초) 읽을 시간을 주고 다음 메인 페이지로 이동합니다.
                                                 setTimeout(() => {
-                                                    identityOverlay.style.display = 'none';
-                                                    mainWrapper.style.opacity = '1';
-                                                }, 600);
-                                            }, 1000);
+                                                    const identityOverlay = document.getElementById('identity-overlay');
+                                                    const mainWrapper = document.getElementById('main-wrapper');
+                                                    
+                                                    identityOverlay.style.opacity = '0';
+                                                    
+                                                    setTimeout(() => {
+                                                        identityOverlay.style.display = 'none';
+                                                        mainWrapper.style.opacity = '1';
+                                                    }, 600);
+                                                }, 600); //  4번째 줄 등장 후 메인으로 넘어가기 전 대기 시간
+
+                                            }, 800); //  3번째 줄 타이핑 완료 후 4번째 줄이 나타나기 전까지 쉬는 시간
+                                            // =======================================================
                                         }
                                     }, typingSpeed);
-                                }, 60); // Line 2 -> Line 3 딜레이 시간
+                                }, 60);
                             }
                         }, typingSpeed);
-                    }, 60); // Line 1 -> Line 2 딜레이 시간
+                    }, 60);
                 }
             }, typingSpeed);
         }
