@@ -198,6 +198,7 @@
 
         .loading-status {
             font-size: 0.9rem;
+	    font-weight: bold;
             color: var(--text-sub);
         }
 
@@ -820,7 +821,7 @@
             <div class="loading-bar-wrapper">
                 <div id="loading-bar" class="loading-bar-fill"></div>
             </div>
-            <div id="loading-text" class="loading-status">0% Loaded</div>
+            <div id="loading-text" class="loading-status">0%</div>
         </div>
     </div>
 
@@ -1292,12 +1293,11 @@
                     if (progress > 100) progress = 100;
                     
                     loadingBar.style.width = progress + '%';
-                    loadingText.innerText = progress + '% Loaded';
+                    loadingText.innerText = progress + '%';
                 } else {
                     clearInterval(loadingInterval);
                     
-                    // ================= [여기서부터 수정됨] =================
-                    // 100% Loaded 상태가 된 후, 지정한 시간(초) 동안 화면을 그대로 멈춰 둡니다.
+                    // 100% 로딩 상태가 된 후, 지정한 시간(초) 동안 화면을 그대로 멈춰 둡니다.
                     setTimeout(() => {
                         const loadingOverlay = document.getElementById('loading-overlay');
                         const identityOverlay = document.getElementById('identity-overlay');
