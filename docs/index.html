@@ -423,6 +423,7 @@
         .news-left {
             width: 30%;
             min-height: auto;
+			aspect-ratio: 1 / 1;
             border: 1px solid var(--ark-border);
             background-color: var(--card);
             overflow: hidden;
@@ -489,7 +490,8 @@
 
         .garden-right {
             width: 30%;
-            min-height: auto;
+            height: auto;
+			aspect-ratio: 1 / 1;
             border: 1px solid var(--ark-border);
             background-color: var(--card);
             overflow: hidden;
@@ -776,7 +778,6 @@
             .page-text-box { padding: 12px; margin-bottom: 15px; }
             .news-box, .garden-box, .dan-content-box { flex-direction: column; gap: 15px; padding: 12px; }
             .news-left, .news-right, .garden-left, .garden-right { width: 100%; }
-            .news-left, .garden-right { min-height: 150px; height: 180px; }
             .card-grid { gap: 10px; }
             .photo-card, .infected-card { width: calc(50% - 5px); min-width: unset; height: 240px; }
             .archive-table { display: block; width: 100%; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
