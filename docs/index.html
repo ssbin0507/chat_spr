@@ -680,13 +680,13 @@
             color: var(--text-main);
         }
 
-        /* 화면에 꽉 차는 모달 팝업 레이아웃 */
+/* ================= [수정] 팝업 모달 스타일 (ASCII 터미널 GUI) ================= */
         .popup-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-color: rgba(15, 17, 19, 0.95);
+            background-color: rgba(15, 17, 19, 0.85);
             z-index: 999;
             align-items: center;
             justify-content: center;
@@ -699,78 +699,137 @@
 
         .popup-window {
             background-color: var(--main-box);
-            border: 2px solid var(--ark-main);
-            padding: 25px 30px 30px;
-            width: 92vw;
-            height: auto;
-	    max-height: 90vh;
-            max-width: 1400px;
+            border: 1px solid var(--ark-border);
+            width: 100%;
+            max-width: 780px;         /* 가로 폭을 780px로 추가 확장 */
+            min-height: 520px;        /* 컴퓨터 화면에 맞춰 세로 최소 높이를 520px로 크게 증가 */
             position: relative;
             box-shadow: 0 15px 40px rgba(0,0,0,0.8);
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            font-family: 'Courier New', Courier, 'Malgun Gothic', monospace;
         }
 
-        .popup-flex-content {
+        /* 팝업 헤더 상단바 (┌───┐) */
+        .popup-header-bar {
             display: flex;
-            gap: 30px;
-            height: auto;
-            overflow-y: auto;
-            margin-top: 10px;
-            padding-right: 5px;
-	    align-items: flex-start;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 16px;
+            border-bottom: 1px solid var(--ark-border);
         }
 
-        .popup-img-container {
-            width: min(45%, 60vh);;
-            height: auto;
-	    aspect-ratio: 1 / 1;
-            background-color: var(--card);
-            border: 1px solid var(--ark-border);
-            overflow: hidden;
-            flex-shrink: 0;
+        .popup-title-text {
+            font-size: 1rem;
+            font-weight: bold;
         }
 
-        .popup-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: fill;
-            display: block;
-        }
-
-        .popup-info-container {
-            width: 55%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
-
-        .popup-close {
-            position: absolute;
-            top: 15px; right: 20px;
+        .popup-close-btn {
             background: none;
             border: none;
             color: var(--text-sub);
-            font-size: 2rem;
+            font-size: 1.1rem;
             cursor: pointer;
-            line-height: 1;
-            z-index: 10;
+            font-family: inherit;
         }
-
-        .popup-close:hover {
+        .popup-close-btn:hover {
             color: var(--danger);
         }
 
-	.popup-title {
-		color: var(--ark-light);
-		font-size: 2rem;
-		font-weight: bold;
-		margin: 0 0 15px 10px;
-		padding: 0;
-		border-left: 4px solid var(--ark-main);
-		padding-left: 12px;
-	}
+        /* IDENTITY 섹션 (├───┤) */
+        .popup-identity-area {
+            display: flex;
+            gap: 30px;                /* 이미지와 텍스트 사이 간격을 넓힘 */
+            padding: 24px;
+        }
+
+        /* 사진틀 (┌───┐) */
+        .popup-photo-frame {
+	    width: 260px;             /* 가로 크기를 220px로 확장 */
+            height: auto;
+	    aspect-ratio: 1 / 1;
+            border: 1px solid var(--ark-border);
+            background-color: rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .popup-photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+        }
+        .popup-photo-frame .no-record {
+            font-size: 0.9rem;
+            color: var(--text-disable);
+            font-weight: bold;
+        }
+
+        /* 우측 IDENTITY 정보 텍스트 */
+        .popup-fields-wrap {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;  /* 커진 이미지 높이에 맞춰 정렬 균형 조정 */
+        }
+
+        .popup-fields-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--text-main);
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .popup-fields-line {
+            border: none;
+            border-top: 1px solid var(--ark-border);
+            margin-bottom: 8px;
+            opacity: 0.5;
+        }
+
+        .popup-field-row {
+            display: flex;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 8px; /* 줄 간격을 늘려 팝업 크기에 맞춰 시원하게 배치 */
+        }
+        .popup-field-label {
+	    width: 120px;
+            color: var(--text-sub);
+            flex-shrink: 0;
+        }
+        .popup-field-val {
+            color: var(--text-normal);
+            word-break: break-all;
+        }
+
+        /* PERSONALITY 섹션 (├───┤) */
+        .popup-personality-title-bar {
+            padding: 12px 24px 2px;   /* 상단 여백 확보 */
+            border-top: 1px solid var(--ark-border);
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--text-main);
+            letter-spacing: 1px;
+        }
+        .popup-personality-line {
+            border: none;
+            border-top: 1px solid var(--ark-border);
+            margin: 2px 24px 12px;
+            opacity: 0.5;
+        }
+
+        .popup-personality-body {
+            padding: 0 24px 30px;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--text-normal);
+            white-space: pre-line;
+            min-height: 120px;        /* 세로가 커진 만큼 하단 텍스트 공간도 넉넉하게 지정 */
+        }
 
         /* 미디어 쿼리 최적화 */
         @media (max-width: 1024px) {
@@ -904,7 +963,7 @@
                     <div class="news-right">
                         <h3>단델리온 (Dandelion)</h3>
                         <p>행성을 정적으로 몰아넣은 멸망의 근원.</p>
-                        <p>치명적인 바이러스성 특징과 고대 원충이 결합한 돌연변이 기생 생물로, 이성이나 의식, 감정적 교류 체계는 전무하며 오직 생존 본능과 번식에 의해서만 움직입니다.</p>
+                        <p>치명적인 바이러스성 특징과 고대 원충이 결합한 돌연변이 기생 생물로, 이성이나 의식, 감정적 교류 체계는 전무하며 오직 생존 본능และ 번식에 의해서만 움직입니다.</p>
                         <ul>
                             <li><strong>감염원:</strong> 공기(대기). 비가시적인 세포막 형태로 이미 전 세계 대기에 완전히 퍼져있어 감염을 피한 생물은 지구상에 존재하지 않습니다. 오직 감염도 수치만이 각자 다를 뿐입니다.</li>
                             <li><strong>약점:</strong> 800~1200°C 이상의 초고온, 뇌. 초고온 화력에 수십 초 이상 노출되거나, 기생의 핵심인 숙주의 뇌가 파괴될 경우 사망합니다.</li>
@@ -1255,20 +1314,37 @@
         </main>
     </div>
 
+<!-- ================= 팝업 모달 HTML 구조 (중복 영역 클리닝 및 동적 구조 유지) ================= -->
     <div id="popupOverlay" class="popup-overlay" onclick="closePopupOnOverlay(event)">
         <div class="popup-window">
-            <button class="popup-close" onclick="closePopup()">&times;</button>
-            <h2 id="popupTitle" class="popup-title" style="border:none; padding-left:0; margin-bottom:10px;"></h2>
-            <div class="popup-flex-content">
-                <div id="popupImgContainer" class="popup-img-container">
-                    <img id="popupImg" src="" alt="Popup Image">
+            <!-- 상단 타이틀 바 -->
+            <div class="popup-header-bar">
+                <span id="popupTitle" class="popup-title-text"></span>
+                <button class="popup-close-btn" onclick="closePopup()">✕</button>
+            </div>
+            
+            <!-- IDENTITY 섹션 (사진 + 명세 필드) -->
+            <div class="popup-identity-area">
+                <div id="popupImgContainer" class="popup-photo-frame">
+                    <img id="popupImg" src="" alt="Photo">
                 </div>
-                <div class="popup-info-container">
-                    <p id="popupText" style="white-space: pre-line; font-size: 1.05rem; line-height: 1.8;"></p>
+                <div class="popup-fields-wrap">
+                    <div id="popupSectionTitle" class="popup-fields-title">IDENTITY</div>
+                    <hr class="popup-fields-line">
+                    <div class="popup-field-row"><span class="popup-field-label">Nickname</span><span id="field-nickname" class="popup-field-val">-</span></div>
+                    <div class="popup-field-row"><span class="popup-field-label">Affiliation</span><span id="field-affiliation" class="popup-field-val">-</span></div>
+                    <div class="popup-field-row"><span class="popup-field-label">Occupation</span><span id="field-occupation" class="popup-field-val">-</span></div>
+                    <div class="popup-field-row"><span class="popup-field-label">Age</span><span id="field-age" class="popup-field-val">-</span></div>
+                    <div class="popup-field-row"><span class="popup-field-label">Language</span><span id="field-lang" class="popup-field-val">-</span></div>
                 </div>
             </div>
+            
+            <!-- PERSONALITY 섹션 (하단 소개글) -->
+            <div id="popupSubSectionTitle" class="popup-personality-title-bar">PERSONALITY</div>
+            <hr class="popup-personality-line">
+            <div id="popupText" class="popup-personality-body"></div>
         </div>
-    </div>
+    </div>            
 
     <script>
         /* 체크박스 상태에 따른 Access 버튼 제어 함수 */
@@ -1285,7 +1361,7 @@
             }
         }
 
-        /* [수정] 안내창 승인 후 -> 로딩 연출 시작 -> 타이핑 연출로 연계되는 스크립트 */
+        /* 안내창 승인 후 -> 로딩 연출 시작 -> 타이핑 연출로 연계되는 스크립트 */
         function startVerification() {
             const introOverlay = document.getElementById('intro-overlay');
             introOverlay.style.opacity = '0';
@@ -1305,7 +1381,7 @@
             }, 200);
         }
 
-/* [추가] 0% ~ 100% 로딩 바 연출 스크립트 */
+        /* 0% ~ 100% 로딩 바 연출 스크립트 */
         function runLoadingEffect() {
             const loadingBar = document.getElementById('loading-bar');
             const loadingText = document.getElementById('loading-text');
@@ -1348,7 +1424,7 @@
             }, 20); // 수치를 낮추면 로딩이 빨라집니다.
         }
 
-function runTypingEffect() {
+        function runTypingEffect() {
             const line1 = document.getElementById('line1');
             const line2 = document.getElementById('line2');
             const line3 = document.getElementById('line3');
@@ -1459,31 +1535,141 @@ function runTypingEffect() {
             event.currentTarget.classList.add('active');
         }
 
+        // ================= openPopup 파싱 제어 함수 (두 가지 종류 자동 감지 분리식 구현) =================
         function openPopup(title, titleColor, text, imgSrc) {
-		const popupTitle = document.getElementById('popupTitle');
-		const imgContainer = document.getElementById('popupImgContainer');
-		const imgTag = document.getElementById('popupImg');
+            const popupTitle = document.getElementById('popupTitle');
+            const imgContainer = document.getElementById('popupImgContainer');
+            const imgTag = document.getElementById('popupImg');
+            const popupSectionTitle = document.getElementById('popupSectionTitle');
+            const popupSubSectionTitle = document.getElementById('popupSubSectionTitle');
 
-		popupTitle.innerText = title;
-		popupTitle.style.color = titleColor;
+            // 타이틀 설정
+            popupTitle.innerText = title;
+            popupTitle.style.color = titleColor;
 
-		document.getElementById('popupText').innerText = text;
+            // 데이터 필드 초기화용 변수
+            let nickname = "-";
+            let affiliation = "-";
+            let occupation = "-";
+            let age = "-";
+            let language = "-";
+            let personality = "";
 
+            // 감염체와 생존자 판단 조건 파싱
+            const isZombie = text && (text.includes('공식명칭:') || text.includes('단계:') || text.includes('뇌 위치:'));
+
+            // 기존 카드 텍스트 내용 개행 기준 파싱 처리
+            if (text) {
+                const lines = text.split('\n');
+                lines.forEach(line => {
+                    const trimmed = line.trim();
+                    if (!trimmed) return;
+
+                    if (isZombie) {
+                        // [종류 1] 감염체 전용 데이터 매핑 파싱
+                        if (trimmed.includes('공식명칭:')) {
+                            nickname = trimmed.split('공식명칭:')[1].replace('.', '').trim();
+                        } else if (trimmed.includes('단계:')) {
+                            affiliation = trimmed.split('단계:')[1].replace('.', '').trim();
+                        } else if (trimmed.includes('뇌 위치:')) {
+                            occupation = trimmed.split('뇌 위치:')[1].replace('.', '').trim();
+                        } else if (trimmed.includes('외형:')) {
+                            age = trimmed.split('외형:')[1].replace('.', '').trim();
+                        } else if (trimmed.includes('주요 행동:')) {
+                            language = trimmed.split('주요 행동:')[1].replace('.', '').trim();
+                        } else {
+                            personality += trimmed + "\n";
+                        }
+                    } else {
+                        // [종류 2] 집단(생존자) 전용 데이터 매핑 파싱
+                        if (trimmed.includes('닉네임:')) {
+                            nickname = trimmed.split('닉네임:')[1].replace('.', '').trim();
+                        } else if (trimmed.includes('소속:')) {
+                            let affText = trimmed.split('소속:')[1].trim();
+                            if (affText.includes('(') && affText.includes(')')) {
+                                affiliation = affText.split('(')[0].trim();
+                                occupation = affText.split('(')[1].replace(')', '').replace('.', '').trim();
+                            } else {
+                                affiliation = affText.replace('.', '').trim();
+                            }
+                        } else if (trimmed.includes('연령:')) {
+                            age = trimmed.split('연령:')[1].replace('.', '').trim();
+                        } else if (trimmed.includes('주 사용 언어:')) {
+                            language = trimmed.split('주 사용 언어:')[1].replace('.', '').trim();
+                        } else if (trimmed.startsWith('소개:')) {
+                            personality += trimmed.split('소개:')[1].trim() + "\n";
+                        } else {
+                            personality += trimmed + "\n";
+                        }
+                    }
+                });
+            }
+
+            // 라벨 엘리먼트 수집 후 동적 전환 적용
+            const labels = document.querySelectorAll('.popup-field-label');
+            if (isZombie) {
+                popupSectionTitle.innerText = "INFECTED SPEC";
+                popupSubSectionTitle.innerText = "BEHAVIOR DETAIL";
+                labels[0].innerText = "Name";
+                labels[1].innerText = "Stage";
+                labels[2].innerText = "Core (Brain)";
+                labels[3].innerText = "Form";
+                labels[4].innerText = "Behavior";
+            } else {
+                popupSectionTitle.innerText = "IDENTITY";
+                popupSubSectionTitle.innerText = "PERSONALITY";
+                labels[0].innerText = "Nickname";
+                labels[1].innerText = "Affiliation";
+                labels[2].innerText = "Occupation";
+                labels[3].innerText = "Age";
+                labels[4].innerText = "Language";
+            }
+
+            // HTML 필드 공간에 최종 바인딩
+            document.getElementById('field-nickname').innerText = nickname;
+            document.getElementById('field-affiliation').innerText = affiliation;
+            document.getElementById('field-occupation').innerText = occupation;
+            document.getElementById('field-age').innerText = age;
+            document.getElementById('field-lang').innerText = language;
+            document.getElementById('popupText').innerText = personality.trim();
+
+            // 이미지 프레임 유지 처리 (No Record 문구 처리 포함)
             if (imgSrc) {
                 imgTag.src = imgSrc;
-                imgContainer.style.display = 'block';
+                imgTag.style.display = 'block';
+                const noRec = imgContainer.querySelector('.no-record');
+                if (noRec) noRec.remove();
             } else {
-                imgContainer.style.display = 'none';
+                imgTag.removeAttribute('src');
+                imgTag.style.display = 'none';
+                if (!imgContainer.querySelector('.no-record')) {
+                    imgContainer.innerHTML = '<span class="no-record">[NO RECORD]</span>';
+                }
             }
-            
             document.getElementById('popupOverlay').classList.add('active');
         }
 
         function closePopup() {
+            // 1. 활성화된 팝업창 숨기기
             document.getElementById('popupOverlay').classList.remove('active');
+            
+            // 2. [리셋] 다음 오픈을 위해 데이터를 대시(-) 상태로 완벽 정소
+            const fields = ['field-nickname', 'field-affiliation', 'field-occupation', 'field-age', 'field-lang'];
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.innerText = '-';
+            });
+            
+            // 3. 본문 텍스트 영역 및 이미지 초기화
+            const pText = document.getElementById('popupText');
+            if (pText) pText.innerText = '';
+            
+            const imgTag = document.getElementById('popupImg');
+            if (imgTag) imgTag.removeAttribute('src');
         }
 
         function closePopupOnOverlay(event) {
+            // 배경 오버레이 구역클릭 시에만 팝업창 닫기가 작동하도록 설정하여 닫기 먹통 오류 원천 차단
             if (event.target === document.getElementById('popupOverlay')) {
                 closePopup();
             }
