@@ -720,7 +720,7 @@
         }
 
         .popup-title-text {
-            font-size: 1rem;
+            font-size: 1.5rem;
             font-weight: bold;
         }
 
@@ -740,12 +740,12 @@
         .popup-identity-area {
             display: flex;
             gap: 30px;                /* 이미지와 텍스트 사이 간격을 넓힘 */
-            padding: 24px;
+            padding: 10px;
         }
 
         /* 사진틀 (┌───┐) */
         .popup-photo-frame {
-	    width: 260px;             /* 가로 크기를 220px로 확장 */
+	    width: 440px;             /* 가로 크기를 220px로 확장 */
             height: auto;
 	    aspect-ratio: 1 / 1;
             border: 1px solid var(--ark-border);
@@ -776,7 +776,7 @@
         }
 
         .popup-fields-title {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: bold;
             color: var(--text-main);
             letter-spacing: 1px;
@@ -823,12 +823,12 @@
         }
 
         .popup-personality-body {
-            padding: 0 24px 30px;
+            padding: 0 24px 5px;     /* 하단 여백 대폭 축소 */
             font-size: 0.9rem;
-            line-height: 1.7;
+            line-height: 1.5;
             color: var(--text-normal);
             white-space: pre-line;
-            min-height: 120px;        /* 세로가 커진 만큼 하단 텍스트 공간도 넉넉하게 지정 */
+            min-height: 60px;         /* 맨 밑단 소개글 파트 최소 범위 대폭 감소 (기존 120px) */
         }
 
         /* 미디어 쿼리 최적화 */
