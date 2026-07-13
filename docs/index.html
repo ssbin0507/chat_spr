@@ -1619,9 +1619,20 @@
 
             // 라벨 엘리먼트 수집 후 동적 전환 적용
             const labels = document.querySelectorAll('.popup-field-label');
+
+// 조작할 하단 요소들 가져오기
+            const personalityLine = document.querySelector('.popup-personality-line');
+            const popupTextEl = document.getElementById('popupText');
+
+
             if (isZombie) {
                 popupSectionTitle.innerText = "INFECTED SPEC";
-                popupSubSectionTitle.innerText = "BEHAVIOR DETAIL";
+
+                // 감염체일 때는 항목 자체를 아예 제거(숨김)
+                popupSubSectionTitle.style.display = 'none';
+                if (personalityLine) personalityLine.style.display = 'none';
+                if (popupTextEl) popupTextEl.style.display = 'none';
+
                 labels[0].innerText = "Name";
                 labels[1].innerText = "Stage";
                 labels[2].innerText = "Core (Brain)";
@@ -1629,7 +1640,13 @@
                 labels[4].innerText = "Behavior";
             } else {
                 popupSectionTitle.innerText = "IDENTITY";
+
+                // 생존자일 때는 다시 원래대로 노출
                 popupSubSectionTitle.innerText = "PERSONALITY";
+                popupSubSectionTitle.style.display = 'block';
+                if (personalityLine) personalityLine.style.display = 'block';
+                if (popupTextEl) popupTextEl.style.display = 'block';
+
                 labels[0].innerText = "Nickname";
                 labels[1].innerText = "Affiliation";
                 labels[2].innerText = "Occupation";
