@@ -835,9 +835,6 @@
         @media (max-width: 1024px) {
             .photo-card, .infected-card { width: calc(50% - 10px); }
             .popup-flex-content { flex-direction: column; align-items: center; }
-            .popup-img-container { width: min(420px, 100%); }
-	    .popup-info-container { width: 100%; }
-
         }
 
         @media (max-width: 768px) {
@@ -852,16 +849,21 @@
             .page-text-box { padding: 12px; margin-bottom: 15px; }
             .news-box, .garden-box, .dan-content-box { flex-direction: column; gap: 15px; padding: 12px; }
             .news-right, .garden-left { width: 100% }
-			.news-left, .garden-right { width: min(320px, 100%); margin: 0 auto; }
+	    .news-left, .garden-right { width: min(320px, 100%); margin: 0 auto; }
             .card-grid { gap: 10px; }
             .photo-card, .infected-card { width: calc(50% - 5px); min-width: unset; height: 240px; }
             .archive-table { display: block; width: 100%; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
-            .popup-window { padding: 25px 15px 15px 15px; width: 95vw; }
-            .popup-title { font-size: 1.8rem !important; }
-			.popup-img-container { width: 100%; }
             .rate-container { padding: 12px; }
             .rate-header { flex-direction: column; align-items: flex-start; gap: 4px; font-size: 0.85rem; margin-bottom: 8px; }
             .rate-header div { width: 100%; word-break: keep-all; }
+            .popup-window { padding: 0; width: 95vw; width: 95vw; min-height: unset; max-height: 90vh; overflow-y: auto;}
+            .popup-title { font-size: 1.8rem; }
+            .popup-identity-area { flex-direction: column; gap: 15px; padding: 15px; }
+            .popup-photo-frame { width: 100%; max-width: 280px; margin: 0 auto; }
+            .popup-fields-wrap { width: 100%; }
+            .popup-personality-title-bar { padding: 12px 15px 2px; }
+            .popup-personality-line { margin: 2px 15px 12px; }
+            .popup-personality-body { padding: 0 15px 15px; }
         }
 
         @media (max-width: 480px) {
@@ -1545,7 +1547,7 @@
             event.currentTarget.classList.add('active');
         }
 
-        // ================= openPopup 파싱 제어 함수 (두 가지 종류 자동 감지 분리식 구현) =================
+        // ================= openPopup 파싱 제어 함수 (두 가지 종류 자동 감지 분리식 구현) 
         function openPopup(title, titleColor, text, imgSrc) {
             const popupTitle = document.getElementById('popupTitle');
             const imgContainer = document.getElementById('popupImgContainer');
